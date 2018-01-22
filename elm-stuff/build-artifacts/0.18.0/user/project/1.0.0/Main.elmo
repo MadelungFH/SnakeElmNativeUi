@@ -1,0 +1,442 @@
+var _user$project$Main$displayWorld = function (_p0) {
+	var _p1 = _p0;
+	return A2(
+		_evancz$elm_graphics$Collage$filled,
+		_elm_lang$core$Color$black,
+		A2(
+			_evancz$elm_graphics$Collage$rect,
+			_elm_lang$core$Basics$toFloat(_p1._0),
+			_elm_lang$core$Basics$toFloat(_p1._1)));
+};
+var _user$project$Main$opposite = F2(
+	function (d1, d2) {
+		var _p2 = {ctor: '_Tuple2', _0: d1, _1: d2};
+		_v1_4:
+		do {
+			if (_p2.ctor === '_Tuple2') {
+				switch (_p2._0.ctor) {
+					case 'Left':
+						if (_p2._1.ctor === 'Right') {
+							return true;
+						} else {
+							break _v1_4;
+						}
+					case 'Right':
+						if (_p2._1.ctor === 'Left') {
+							return true;
+						} else {
+							break _v1_4;
+						}
+					case 'Up':
+						if (_p2._1.ctor === 'Down') {
+							return true;
+						} else {
+							break _v1_4;
+						}
+					default:
+						if (_p2._1.ctor === 'Up') {
+							return true;
+						} else {
+							break _v1_4;
+						}
+				}
+			} else {
+				break _v1_4;
+			}
+		} while(false);
+		return false;
+	});
+var _user$project$Main$nextPos = F2(
+	function (pos, maxpos) {
+		return _elm_lang$core$Native_Utils.eq(pos, maxpos) ? 0 : (pos + 1);
+	});
+var _user$project$Main$snakeWidth = 16;
+var _user$project$Main$rows = 26;
+var _user$project$Main$height = _user$project$Main$snakeWidth * _user$project$Main$rows;
+var _user$project$Main$right = function (y) {
+	return A2(_user$project$Main$nextPos, y, _user$project$Main$rows);
+};
+var _user$project$Main$columns = 42;
+var _user$project$Main$width = _user$project$Main$snakeWidth * _user$project$Main$columns;
+var _user$project$Main$up = function (x) {
+	return A2(_user$project$Main$nextPos, x, _user$project$Main$columns);
+};
+var _user$project$Main$randPos = A2(
+	_elm_lang$core$Random$pair,
+	A2(_elm_lang$core$Random$int, 0, _user$project$Main$columns - 1),
+	A2(_elm_lang$core$Random$int, 0, _user$project$Main$rows - 1));
+var _user$project$Main$validFruit = F2(
+	function (fruit, positions) {
+		validFruit:
+		while (true) {
+			if (A2(
+				_elm_lang$core$List$any,
+				function (snake) {
+					return _elm_lang$core$Native_Utils.eq(snake, fruit);
+				},
+				positions)) {
+				var _p3 = fruit;
+				var fruitx = _p3._0;
+				var fruity = _p3._1;
+				var _p4 = {
+					ctor: '_Tuple2',
+					_0: _user$project$Main$right(fruitx),
+					_1: _user$project$Main$up(fruity)
+				};
+				var fruitx_ = _p4._0;
+				var fruity_ = _p4._1;
+				var overflow = _elm_lang$core$Native_Utils.eq(fruitx, _user$project$Main$columns);
+				var pos_ = {
+					ctor: '_Tuple2',
+					_0: fruitx_,
+					_1: overflow ? fruity_ : fruity
+				};
+				var _v2 = pos_,
+					_v3 = positions;
+				fruit = _v2;
+				positions = _v3;
+				continue validFruit;
+			} else {
+				return fruit;
+			}
+		}
+	});
+var _user$project$Main$toCoord = function (_p5) {
+	var _p6 = _p5;
+	return {
+		ctor: '_Tuple2',
+		_0: (_user$project$Main$snakeWidth / 2) + ((_elm_lang$core$Basics$toFloat(_p6._0) - (_user$project$Main$columns / 2)) * _user$project$Main$snakeWidth),
+		_1: (_user$project$Main$snakeWidth / 2) + ((_elm_lang$core$Basics$toFloat(_p6._1) - (_user$project$Main$rows / 2)) * _user$project$Main$snakeWidth)
+	};
+};
+var _user$project$Main$displaySnake = function (_p7) {
+	var _p8 = _p7;
+	var style = {
+		color: _elm_lang$core$Color$white,
+		width: _user$project$Main$snakeWidth,
+		cap: _evancz$elm_graphics$Collage$Flat,
+		join: _evancz$elm_graphics$Collage$Sharp(10),
+		dashOffset: 0,
+		dashing: {ctor: '[]'}
+	};
+	return A2(
+		_evancz$elm_graphics$Collage$traced,
+		style,
+		_evancz$elm_graphics$Collage$path(
+			A2(_elm_lang$core$List$map, _user$project$Main$toCoord, _p8.positions)));
+};
+var _user$project$Main$displayFruit = function (pos) {
+	var coords = _user$project$Main$toCoord(pos);
+	return A2(
+		_evancz$elm_graphics$Collage$move,
+		coords,
+		A2(
+			_evancz$elm_graphics$Collage$filled,
+			_elm_lang$core$Color$red,
+			A2(_evancz$elm_graphics$Collage$rect, _user$project$Main$snakeWidth, _user$project$Main$snakeWidth)));
+};
+var _user$project$Main$display = function (_p9) {
+	var _p10 = _p9;
+	var _p12 = _p10.window;
+	var _p11 = _p10.fruit;
+	return (_elm_lang$core$Native_Utils.eq(_p12.width, 0) || _elm_lang$core$Native_Utils.eq(
+		_p11,
+		{ctor: '_Tuple2', _0: -1, _1: -1})) ? _evancz$elm_graphics$Element$empty : A4(
+		_evancz$elm_graphics$Element$container,
+		_p12.width,
+		_p12.height,
+		_evancz$elm_graphics$Element$middle,
+		A3(
+			_evancz$elm_graphics$Collage$collage,
+			_user$project$Main$width,
+			_user$project$Main$height,
+			{
+				ctor: '::',
+				_0: _user$project$Main$displayWorld(
+					{ctor: '_Tuple2', _0: _p12.width, _1: _p12.height}),
+				_1: {
+					ctor: '::',
+					_0: _user$project$Main$displaySnake(_p10.snake),
+					_1: {
+						ctor: '::',
+						_0: _user$project$Main$displayFruit(_p11),
+						_1: {ctor: '[]'}
+					}
+				}
+			}));
+};
+var _user$project$Main$view = function (game) {
+	return A2(
+		_elm_lang$html$Html$body,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _evancz$elm_graphics$Element$toHtml(
+				_user$project$Main$display(game)),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Main$last = function (list) {
+	last:
+	while (true) {
+		var _p13 = list;
+		if (_p13.ctor === '[]') {
+			return _elm_lang$core$Maybe$Nothing;
+		} else {
+			if (_p13._1.ctor === '[]') {
+				return _elm_lang$core$Maybe$Just(_p13._0);
+			} else {
+				var _v8 = _p13._1;
+				list = _v8;
+				continue last;
+			}
+		}
+	}
+};
+var _user$project$Main$stepSnake = function (_p14) {
+	var _p15 = _p14;
+	var _p20 = _p15.positions;
+	var _p19 = _p15.dir;
+	var snakeHead = _user$project$Main$last(_p20);
+	var _p16 = snakeHead;
+	if (_p16.ctor === 'Just') {
+		var y_ = _p16._0._1 + function () {
+			var _p17 = _p19;
+			switch (_p17.ctor) {
+				case 'Up':
+					return 1;
+				case 'Down':
+					return -1;
+				default:
+					return 0;
+			}
+		}();
+		var x_ = _p16._0._0 + function () {
+			var _p18 = _p19;
+			switch (_p18.ctor) {
+				case 'Left':
+					return -1;
+				case 'Right':
+					return 1;
+				default:
+					return 0;
+			}
+		}();
+		return {
+			positions: A2(
+				_elm_lang$core$Basics_ops['++'],
+				_p20,
+				{
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: x_, _1: y_},
+					_1: {ctor: '[]'}
+				}),
+			dir: _p19
+		};
+	} else {
+		return {positions: _p20, dir: _p19};
+	}
+};
+var _user$project$Main$collideWalls = function (_p21) {
+	var _p22 = _p21;
+	var snakeHead = _user$project$Main$last(_p22.positions);
+	var _p23 = snakeHead;
+	if (_p23.ctor === 'Just') {
+		var _p25 = _p23._0._1;
+		var _p24 = _p23._0._0;
+		return (_elm_lang$core$Native_Utils.cmp(_p24, 0) < 0) || ((_elm_lang$core$Native_Utils.cmp(_p24, _user$project$Main$columns) > 0) || ((_elm_lang$core$Native_Utils.cmp(_p25, 0) < 0) || (_elm_lang$core$Native_Utils.cmp(_p25, _user$project$Main$rows) > 0)));
+	} else {
+		return false;
+	}
+};
+var _user$project$Main$collideSnake = function (_p26) {
+	var _p27 = _p26;
+	var _p29 = _p27.positions;
+	var otherPos = A2(
+		_elm_lang$core$List$drop,
+		1,
+		A2(
+			_elm_lang$core$List$take,
+			_elm_lang$core$List$length(_p29) - 1,
+			_p29));
+	var snakeHead = _user$project$Main$last(_p29);
+	var _p28 = snakeHead;
+	if (_p28.ctor === 'Just') {
+		return A2(
+			_elm_lang$core$List$any,
+			function (body) {
+				return _elm_lang$core$Native_Utils.eq(body, _p28._0);
+			},
+			otherPos);
+	} else {
+		return false;
+	}
+};
+var _user$project$Main$eatFruit = F2(
+	function (_p30, fruit) {
+		var _p31 = _p30;
+		var snakeHead = _user$project$Main$last(_p31.positions);
+		var _p32 = snakeHead;
+		if (_p32.ctor === 'Just') {
+			return _elm_lang$core$Native_Utils.eq(_p32._0, fruit);
+		} else {
+			return false;
+		}
+	});
+var _user$project$Main$Snake = F2(
+	function (a, b) {
+		return {positions: a, dir: b};
+	});
+var _user$project$Main$Game = F3(
+	function (a, b, c) {
+		return {snake: a, fruit: b, window: c};
+	});
+var _user$project$Main$Right = {ctor: 'Right'};
+var _user$project$Main$Left = {ctor: 'Left'};
+var _user$project$Main$Down = {ctor: 'Down'};
+var _user$project$Main$Up = {ctor: 'Up'};
+var _user$project$Main$NoOp = {ctor: 'NoOp'};
+var _user$project$Main$SetSize = function (a) {
+	return {ctor: 'SetSize', _0: a};
+};
+var _user$project$Main$NewFruit = function (a) {
+	return {ctor: 'NewFruit', _0: a};
+};
+var _user$project$Main$init = function () {
+	var middle = function (max) {
+		return _elm_lang$core$Basics$round(max / 2);
+	};
+	var midX = middle(_user$project$Main$columns);
+	var midY = middle(_user$project$Main$rows);
+	var positions = A2(
+		_elm_lang$core$List$map,
+		function (i) {
+			return {ctor: '_Tuple2', _0: i, _1: midY};
+		},
+		_elm_lang$core$List$reverse(
+			A2(_elm_lang$core$List$range, midX - 5, midX + 3)));
+	var game = {
+		snake: {positions: positions, dir: _user$project$Main$Left},
+		fruit: {ctor: '_Tuple2', _0: -1, _1: -1},
+		window: {width: 0, height: 0}
+	};
+	return {
+		ctor: '_Tuple2',
+		_0: game,
+		_1: _elm_lang$core$Platform_Cmd$batch(
+			{
+				ctor: '::',
+				_0: A2(_elm_lang$core$Random$generate, _user$project$Main$NewFruit, _user$project$Main$randPos),
+				_1: {
+					ctor: '::',
+					_0: A2(_elm_lang$core$Task$perform, _user$project$Main$SetSize, _elm_lang$window$Window$size),
+					_1: {ctor: '[]'}
+				}
+			})
+	};
+}();
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p33 = msg;
+		switch (_p33.ctor) {
+			case 'Tick':
+				if (_user$project$Main$collideWalls(model.snake) || _user$project$Main$collideSnake(model.snake)) {
+					return _user$project$Main$init;
+				} else {
+					var snake_ = _user$project$Main$stepSnake(model.snake);
+					return A2(_user$project$Main$eatFruit, snake_, model.fruit) ? {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{snake: snake_}),
+						_1: A2(_elm_lang$core$Random$generate, _user$project$Main$NewFruit, _user$project$Main$randPos)
+					} : {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								snake: _elm_lang$core$Native_Utils.update(
+									snake_,
+									{
+										positions: A2(_elm_lang$core$List$drop, 1, snake_.positions)
+									})
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
+			case 'ChangeDirection':
+				var _p34 = _p33._0;
+				var snake = model.snake;
+				var direction_ = A2(_user$project$Main$opposite, _p34, model.snake.dir) ? model.snake.dir : _p34;
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							snake: _elm_lang$core$Native_Utils.update(
+								snake,
+								{dir: direction_})
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'NewFruit':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							fruit: A2(_user$project$Main$validFruit, _p33._0, model.snake.positions)
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'SetSize':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{window: _p33._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+		}
+	});
+var _user$project$Main$ChangeDirection = function (a) {
+	return {ctor: 'ChangeDirection', _0: a};
+};
+var _user$project$Main$direction = function (keyCode) {
+	var _p35 = keyCode;
+	switch (_p35) {
+		case 37:
+			return _user$project$Main$ChangeDirection(_user$project$Main$Left);
+		case 38:
+			return _user$project$Main$ChangeDirection(_user$project$Main$Up);
+		case 39:
+			return _user$project$Main$ChangeDirection(_user$project$Main$Right);
+		case 40:
+			return _user$project$Main$ChangeDirection(_user$project$Main$Down);
+		default:
+			return _user$project$Main$NoOp;
+	}
+};
+var _user$project$Main$Tick = function (a) {
+	return {ctor: 'Tick', _0: a};
+};
+var _user$project$Main$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$batch(
+		{
+			ctor: '::',
+			_0: A2(_elm_lang$core$Time$every, 100 * _elm_lang$core$Time$millisecond, _user$project$Main$Tick),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$keyboard$Keyboard$downs(_user$project$Main$direction),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$window$Window$resizes(_user$project$Main$SetSize),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
+var _user$project$Main$main = _elm_lang$html$Html$program(
+	{init: _user$project$Main$init, view: _user$project$Main$view, update: _user$project$Main$update, subscriptions: _user$project$Main$subscriptions})();

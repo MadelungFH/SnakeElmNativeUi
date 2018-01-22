@@ -1,0 +1,32 @@
+var _ohanhi$elm_native_ui$NativeUi_Events$onChangeText = function (tagger) {
+	return A2(
+		_ohanhi$elm_native_ui$NativeUi$on,
+		'ChangeText',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$core$Json_Decode$string));
+};
+var _ohanhi$elm_native_ui$NativeUi_Events$onPickerValueChange = function (tagger) {
+	return A2(
+		_ohanhi$elm_native_ui$NativeUi$on,
+		'PickerValueChange',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$core$Json_Decode$string));
+};
+var _ohanhi$elm_native_ui$NativeUi_Events$constantMsgEvent = F2(
+	function (name, msg) {
+		return A2(
+			_ohanhi$elm_native_ui$NativeUi$on,
+			name,
+			_elm_lang$core$Json_Decode$succeed(msg));
+	});
+var _ohanhi$elm_native_ui$NativeUi_Events$onLayout = _ohanhi$elm_native_ui$NativeUi_Events$constantMsgEvent('Layout');
+var _ohanhi$elm_native_ui$NativeUi_Events$onPress = _ohanhi$elm_native_ui$NativeUi_Events$constantMsgEvent('Press');
+var _ohanhi$elm_native_ui$NativeUi_Events$onLongPress = _ohanhi$elm_native_ui$NativeUi_Events$constantMsgEvent('LongPress');
+var _ohanhi$elm_native_ui$NativeUi_Events$onRegionChange = _ohanhi$elm_native_ui$NativeUi_Events$constantMsgEvent('RegionChange');
+var _ohanhi$elm_native_ui$NativeUi_Events$onRegionChangeComplete = _ohanhi$elm_native_ui$NativeUi_Events$constantMsgEvent('RegionChangeComplete');
+var _ohanhi$elm_native_ui$NativeUi_Events$onAnnotationPress = _ohanhi$elm_native_ui$NativeUi_Events$constantMsgEvent('AnnotationPress');
+var _ohanhi$elm_native_ui$NativeUi_Events$onRefresh = _ohanhi$elm_native_ui$NativeUi_Events$constantMsgEvent('Refresh');
+var _ohanhi$elm_native_ui$NativeUi_Events$onScroll = _ohanhi$elm_native_ui$NativeUi_Events$constantMsgEvent('Scroll');
+var _ohanhi$elm_native_ui$NativeUi_Events$onScrollAnimationEnd = _ohanhi$elm_native_ui$NativeUi_Events$constantMsgEvent('ScrollAnimationEnd');
+var _ohanhi$elm_native_ui$NativeUi_Events$onContentSizeChange = _ohanhi$elm_native_ui$NativeUi_Events$constantMsgEvent('ContentSizeChange');
+var _ohanhi$elm_native_ui$NativeUi_Events$onShowUnderlay = _ohanhi$elm_native_ui$NativeUi_Events$constantMsgEvent('ShowUnderlay');
+var _ohanhi$elm_native_ui$NativeUi_Events$onHideUnderlay = _ohanhi$elm_native_ui$NativeUi_Events$constantMsgEvent('HideUnderlay');
+var _ohanhi$elm_native_ui$NativeUi_Events$onNavigateBack = _ohanhi$elm_native_ui$NativeUi_Events$constantMsgEvent('NavigateBack');

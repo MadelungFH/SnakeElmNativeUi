@@ -1,0 +1,92 @@
+var _ohanhi$elm_native_ui$NativeUi_Image$encodeCacheStrategy = function (cacheStrategy) {
+	var _p0 = cacheStrategy;
+	switch (_p0.ctor) {
+		case 'Default':
+			return _elm_lang$core$Json_Encode$string('default');
+		case 'Reload':
+			return _elm_lang$core$Json_Encode$string('reload');
+		case 'ForceCache':
+			return _elm_lang$core$Json_Encode$string('force-cache');
+		default:
+			return _elm_lang$core$Json_Encode$string('only-if-cached');
+	}
+};
+var _ohanhi$elm_native_ui$NativeUi_Image$encodeSource = function (source) {
+	var mapFunc = function (x) {
+		return {
+			ctor: '_Tuple2',
+			_0: 'cache',
+			_1: _ohanhi$elm_native_ui$NativeUi_Image$encodeCacheStrategy(x)
+		};
+	};
+	var uriEncode = {
+		ctor: '_Tuple2',
+		_0: 'uri',
+		_1: _elm_lang$core$Json_Encode$string(source.uri)
+	};
+	var encoding = {
+		ctor: '::',
+		_0: _elm_lang$core$Maybe$Just(uriEncode),
+		_1: {
+			ctor: '::',
+			_0: A2(_elm_lang$core$Maybe$map, mapFunc, source.cache),
+			_1: {ctor: '[]'}
+		}
+	};
+	return _elm_lang$core$Json_Encode$object(
+		A2(_elm_lang$core$List$filterMap, _elm_lang$core$Basics$identity, encoding));
+};
+var _ohanhi$elm_native_ui$NativeUi_Image$source = function (val) {
+	return A2(
+		_ohanhi$elm_native_ui$NativeUi$property,
+		'source',
+		_ohanhi$elm_native_ui$NativeUi_Image$encodeSource(val));
+};
+var _ohanhi$elm_native_ui$NativeUi_Image$defaultSource = function (uri) {
+	return {uri: uri, cache: _elm_lang$core$Maybe$Nothing};
+};
+var _ohanhi$elm_native_ui$NativeUi_Image$Source = F2(
+	function (a, b) {
+		return {uri: a, cache: b};
+	});
+var _ohanhi$elm_native_ui$NativeUi_Image$OnlyIfCached = {ctor: 'OnlyIfCached'};
+var _ohanhi$elm_native_ui$NativeUi_Image$ForceCache = {ctor: 'ForceCache'};
+var _ohanhi$elm_native_ui$NativeUi_Image$Reload = {ctor: 'Reload'};
+var _ohanhi$elm_native_ui$NativeUi_Image$Default = {ctor: 'Default'};
+var _ohanhi$elm_native_ui$NativeUi_Image$decodeCacheStrategy = function (optionalStringValue) {
+	var _p1 = optionalStringValue;
+	if (_p1.ctor === 'Nothing') {
+		return _elm_lang$core$Json_Decode$succeed(_elm_lang$core$Maybe$Nothing);
+	} else {
+		var _p3 = _p1._0;
+		var _p2 = _p3;
+		switch (_p2) {
+			case 'default':
+				return _elm_lang$core$Json_Decode$succeed(
+					_elm_lang$core$Maybe$Just(_ohanhi$elm_native_ui$NativeUi_Image$Default));
+			case 'reload':
+				return _elm_lang$core$Json_Decode$succeed(
+					_elm_lang$core$Maybe$Just(_ohanhi$elm_native_ui$NativeUi_Image$Reload));
+			case 'force-cache':
+				return _elm_lang$core$Json_Decode$succeed(
+					_elm_lang$core$Maybe$Just(_ohanhi$elm_native_ui$NativeUi_Image$ForceCache));
+			case 'only-if-cached':
+				return _elm_lang$core$Json_Decode$succeed(
+					_elm_lang$core$Maybe$Just(_ohanhi$elm_native_ui$NativeUi_Image$OnlyIfCached));
+			default:
+				return _elm_lang$core$Json_Decode$fail(
+					A2(_elm_lang$core$Basics_ops['++'], _p3, ' is not a valid image cache value'));
+		}
+	}
+};
+var _ohanhi$elm_native_ui$NativeUi_Image$decodeSource = A3(
+	_elm_lang$core$Json_Decode$map2,
+	_ohanhi$elm_native_ui$NativeUi_Image$Source,
+	A2(_elm_lang$core$Json_Decode$field, 'uri', _elm_lang$core$Json_Decode$string),
+	A2(
+		_elm_lang$core$Json_Decode$andThen,
+		_ohanhi$elm_native_ui$NativeUi_Image$decodeCacheStrategy,
+		A2(
+			_elm_lang$core$Json_Decode$field,
+			'cache',
+			_elm_lang$core$Json_Decode$nullable(_elm_lang$core$Json_Decode$string))));

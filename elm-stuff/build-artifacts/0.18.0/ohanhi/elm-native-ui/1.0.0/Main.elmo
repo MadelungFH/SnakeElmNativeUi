@@ -1,0 +1,549 @@
+var _ohanhi$elm_native_ui$Main$button = F2(
+	function (msg, content) {
+		return A2(
+			_ohanhi$elm_native_ui$NativeUi_Elements$text,
+			{
+				ctor: '::',
+				_0: _ohanhi$elm_native_ui$NativeUi$style(
+					{
+						ctor: '::',
+						_0: _ohanhi$elm_native_ui$NativeUi_Style$color('white'),
+						_1: {
+							ctor: '::',
+							_0: _ohanhi$elm_native_ui$NativeUi_Style$textAlign('center'),
+							_1: {
+								ctor: '::',
+								_0: _ohanhi$elm_native_ui$NativeUi_Style$backgroundColor('#000000'),
+								_1: {
+									ctor: '::',
+									_0: _ohanhi$elm_native_ui$NativeUi_Style$paddingTop(5),
+									_1: {
+										ctor: '::',
+										_0: _ohanhi$elm_native_ui$NativeUi_Style$paddingBottom(5),
+										_1: {
+											ctor: '::',
+											_0: _ohanhi$elm_native_ui$NativeUi_Style$width(50),
+											_1: {
+												ctor: '::',
+												_0: _ohanhi$elm_native_ui$NativeUi_Style$height(30),
+												_1: {
+													ctor: '::',
+													_0: _ohanhi$elm_native_ui$NativeUi_Style$fontWeight('bold'),
+													_1: {
+														ctor: '::',
+														_0: _ohanhi$elm_native_ui$NativeUi_Style$shadowColor('#000'),
+														_1: {
+															ctor: '::',
+															_0: _ohanhi$elm_native_ui$NativeUi_Style$shadowOpacity(0.25),
+															_1: {
+																ctor: '::',
+																_0: A2(_ohanhi$elm_native_ui$NativeUi_Style$shadowOffset, 1, 1),
+																_1: {
+																	ctor: '::',
+																	_0: _ohanhi$elm_native_ui$NativeUi_Style$shadowRadius(5),
+																	_1: {ctor: '[]'}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}),
+				_1: {
+					ctor: '::',
+					_0: _ohanhi$elm_native_ui$NativeUi_Events$onPress(msg),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: _ohanhi$elm_native_ui$NativeUi$string(content),
+				_1: {ctor: '[]'}
+			});
+	});
+var _ohanhi$elm_native_ui$Main$fieldBox = function (col) {
+	return A2(
+		_ohanhi$elm_native_ui$NativeUi_Elements$view,
+		{
+			ctor: '::',
+			_0: _ohanhi$elm_native_ui$NativeUi$style(
+				{
+					ctor: '::',
+					_0: _ohanhi$elm_native_ui$NativeUi_Style$width(20),
+					_1: {
+						ctor: '::',
+						_0: _ohanhi$elm_native_ui$NativeUi_Style$height(20),
+						_1: {
+							ctor: '::',
+							_0: _ohanhi$elm_native_ui$NativeUi_Style$backgroundColor(col),
+							_1: {ctor: '[]'}
+						}
+					}
+				}),
+			_1: {ctor: '[]'}
+		},
+		{ctor: '[]'});
+};
+var _ohanhi$elm_native_ui$Main$isSnake = F2(
+	function (pos, snake) {
+		isSnake:
+		while (true) {
+			var _p0 = snake;
+			if (_p0.ctor === '[]') {
+				return false;
+			} else {
+				if (_elm_lang$core$Native_Utils.eq(_p0._0, pos)) {
+					return true;
+				} else {
+					var _v1 = pos,
+						_v2 = _p0._1;
+					pos = _v1;
+					snake = _v2;
+					continue isSnake;
+				}
+			}
+		}
+	});
+var _ohanhi$elm_native_ui$Main$appleOnSnake = F2(
+	function (apple, snake) {
+		appleOnSnake:
+		while (true) {
+			var _p1 = snake;
+			if (_p1.ctor === '[]') {
+				return false;
+			} else {
+				if (_elm_lang$core$Native_Utils.eq(_p1._0, apple)) {
+					return true;
+				} else {
+					var _v4 = apple,
+						_v5 = _p1._1;
+					apple = _v4;
+					snake = _v5;
+					continue appleOnSnake;
+				}
+			}
+		}
+	});
+var _ohanhi$elm_native_ui$Main$takeTail = function (snake) {
+	return A2(
+		_elm_lang$core$List$drop,
+		1,
+		_elm_lang$core$List$reverse(snake));
+};
+var _ohanhi$elm_native_ui$Main$stepSnake = F2(
+	function (snake, dir) {
+		var _p2 = snake;
+		if (_p2.ctor === '[]') {
+			return {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 1, _1: 1},
+				_1: {ctor: '[]'}
+			};
+		} else {
+			var _p5 = _p2._0._1;
+			var _p4 = _p2._0._0;
+			var _p3 = dir;
+			switch (_p3.ctor) {
+				case 'Up':
+					return {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: _p4 + 1, _1: _p5},
+						_1: snake
+					};
+				case 'Down':
+					return {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: _p4 - 1, _1: _p5},
+						_1: snake
+					};
+				case 'Left':
+					return {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: _p4, _1: _p5 + 1},
+						_1: snake
+					};
+				default:
+					return {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: _p4, _1: _p5 - 1},
+						_1: snake
+					};
+			}
+		}
+	});
+var _ohanhi$elm_native_ui$Main$eatApple = F2(
+	function (snake, apple) {
+		var snakeHead = _elm_lang$core$List$head(snake);
+		var _p6 = snakeHead;
+		if (_p6.ctor === 'Just') {
+			return _elm_lang$core$Native_Utils.eq(_p6._0, apple);
+		} else {
+			return false;
+		}
+	});
+var _ohanhi$elm_native_ui$Main$collideSnakeHelper = F2(
+	function (snakeHead, tailList) {
+		collideSnakeHelper:
+		while (true) {
+			var _p7 = tailList;
+			if (_p7.ctor === '[]') {
+				return false;
+			} else {
+				if (_elm_lang$core$Native_Utils.eq(_p7._0, snakeHead)) {
+					return true;
+				} else {
+					var _v10 = snakeHead,
+						_v11 = _p7._1;
+					snakeHead = _v10;
+					tailList = _v11;
+					continue collideSnakeHelper;
+				}
+			}
+		}
+	});
+var _ohanhi$elm_native_ui$Main$collideSnake = function (snakeList) {
+	var snakeBody = _elm_lang$core$List$tail(snakeList);
+	var snakeHead = _elm_lang$core$List$head(snakeList);
+	var _p8 = snakeBody;
+	if (_p8.ctor === 'Nothing') {
+		return false;
+	} else {
+		var _p9 = snakeHead;
+		if (_p9.ctor === 'Nothing') {
+			return false;
+		} else {
+			return A2(_ohanhi$elm_native_ui$Main$collideSnakeHelper, _p9._0, _p8._0);
+		}
+	}
+};
+var _ohanhi$elm_native_ui$Main$nextPos = F2(
+	function (pos, maxpos) {
+		return _elm_lang$core$Native_Utils.eq(pos, maxpos) ? 0 : (pos + 1);
+	});
+var _ohanhi$elm_native_ui$Main$colorApple = '#FF0800';
+var _ohanhi$elm_native_ui$Main$colorSnake = '#59982F';
+var _ohanhi$elm_native_ui$Main$colorField = '#DAC27C';
+var _ohanhi$elm_native_ui$Main$createGameBox = F2(
+	function (model, pos) {
+		return _elm_lang$core$Native_Utils.eq(pos, model.apple) ? _ohanhi$elm_native_ui$Main$fieldBox(_ohanhi$elm_native_ui$Main$colorApple) : (A2(_ohanhi$elm_native_ui$Main$isSnake, pos, model.snake) ? _ohanhi$elm_native_ui$Main$fieldBox(_ohanhi$elm_native_ui$Main$colorSnake) : _ohanhi$elm_native_ui$Main$fieldBox(_ohanhi$elm_native_ui$Main$colorField));
+	});
+var _ohanhi$elm_native_ui$Main$initField = {
+	ctor: '::',
+	_0: {ctor: '_Tuple2', _0: 1, _1: 1},
+	_1: {ctor: '[]'}
+};
+var _ohanhi$elm_native_ui$Main$rows = 15;
+var _ohanhi$elm_native_ui$Main$right = function (y) {
+	return A2(_ohanhi$elm_native_ui$Main$nextPos, y, _ohanhi$elm_native_ui$Main$rows);
+};
+var _ohanhi$elm_native_ui$Main$columns = 30;
+var _ohanhi$elm_native_ui$Main$createList = function (list) {
+	createList:
+	while (true) {
+		var _p10 = list;
+		if (_p10.ctor === '[]') {
+			return {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 1, _1: 1},
+				_1: {ctor: '[]'}
+			};
+		} else {
+			var _p12 = _p10._0._1;
+			var _p11 = _p10._0._0;
+			if (_elm_lang$core$Native_Utils.cmp(_p12, _ohanhi$elm_native_ui$Main$columns) < 0) {
+				var _v15 = {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: _p11, _1: _p12 + 1},
+					_1: list
+				};
+				list = _v15;
+				continue createList;
+			} else {
+				if (_elm_lang$core$Native_Utils.cmp(_p11, _ohanhi$elm_native_ui$Main$rows) < 0) {
+					var _v16 = {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: _p11 + 1, _1: 1},
+						_1: list
+					};
+					list = _v16;
+					continue createList;
+				} else {
+					return list;
+				}
+			}
+		}
+	}
+};
+var _ohanhi$elm_native_ui$Main$up = function (x) {
+	return A2(_ohanhi$elm_native_ui$Main$nextPos, x, _ohanhi$elm_native_ui$Main$columns);
+};
+var _ohanhi$elm_native_ui$Main$randPos = A2(
+	_elm_lang$core$Random$pair,
+	A2(_elm_lang$core$Random$int, 1, _ohanhi$elm_native_ui$Main$rows),
+	A2(_elm_lang$core$Random$int, 1, _ohanhi$elm_native_ui$Main$columns));
+var _ohanhi$elm_native_ui$Main$collideWalls = function (snake) {
+	var _p13 = snake;
+	if (_p13.ctor === '::') {
+		var _p15 = _p13._0._1;
+		var _p14 = _p13._0._0;
+		return (_elm_lang$core$Native_Utils.cmp(_p14, 0) < 0) || ((_elm_lang$core$Native_Utils.cmp(_p14, _ohanhi$elm_native_ui$Main$rows) > 0) || ((_elm_lang$core$Native_Utils.cmp(_p15, 0) < 0) || (_elm_lang$core$Native_Utils.cmp(_p15, _ohanhi$elm_native_ui$Main$columns) > 0)));
+	} else {
+		return false;
+	}
+};
+var _ohanhi$elm_native_ui$Main$Model = F4(
+	function (a, b, c, d) {
+		return {field: a, apple: b, snake: c, dir: d};
+	});
+var _ohanhi$elm_native_ui$Main$ChangeRight = {ctor: 'ChangeRight'};
+var _ohanhi$elm_native_ui$Main$ChangeLeft = {ctor: 'ChangeLeft'};
+var _ohanhi$elm_native_ui$Main$ChangeDown = {ctor: 'ChangeDown'};
+var _ohanhi$elm_native_ui$Main$ChangeUp = {ctor: 'ChangeUp'};
+var _ohanhi$elm_native_ui$Main$createGameField = function (model) {
+	return A2(
+		_ohanhi$elm_native_ui$NativeUi_Elements$view,
+		{
+			ctor: '::',
+			_0: _ohanhi$elm_native_ui$NativeUi$style(
+				{
+					ctor: '::',
+					_0: _ohanhi$elm_native_ui$NativeUi_Style$flex(1),
+					_1: {
+						ctor: '::',
+						_0: _ohanhi$elm_native_ui$NativeUi_Style$alignItems('center'),
+						_1: {
+							ctor: '::',
+							_0: _ohanhi$elm_native_ui$NativeUi_Style$justifyContent('space-between'),
+							_1: {ctor: '[]'}
+						}
+					}
+				}),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_ohanhi$elm_native_ui$NativeUi_Elements$view,
+				{
+					ctor: '::',
+					_0: _ohanhi$elm_native_ui$NativeUi$style(
+						{
+							ctor: '::',
+							_0: _ohanhi$elm_native_ui$NativeUi_Style$flexWrap('wrap'),
+							_1: {
+								ctor: '::',
+								_0: _ohanhi$elm_native_ui$NativeUi_Style$justifyContent('center'),
+								_1: {
+									ctor: '::',
+									_0: _ohanhi$elm_native_ui$NativeUi_Style$flexDirection('row'),
+									_1: {
+										ctor: '::',
+										_0: _ohanhi$elm_native_ui$NativeUi_Style$alignItems('center'),
+										_1: {
+											ctor: '::',
+											_0: _ohanhi$elm_native_ui$NativeUi_Style$width(600),
+											_1: {
+												ctor: '::',
+												_0: _ohanhi$elm_native_ui$NativeUi_Style$height(300),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}
+							}
+						}),
+					_1: {ctor: '[]'}
+				},
+				A2(
+					_elm_lang$core$List$map,
+					_ohanhi$elm_native_ui$Main$createGameBox(model),
+					model.field)),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_ohanhi$elm_native_ui$NativeUi_Elements$view,
+					{
+						ctor: '::',
+						_0: _ohanhi$elm_native_ui$NativeUi$style(
+							{
+								ctor: '::',
+								_0: _ohanhi$elm_native_ui$NativeUi_Style$width(50),
+								_1: {
+									ctor: '::',
+									_0: _ohanhi$elm_native_ui$NativeUi_Style$flexDirection('row'),
+									_1: {
+										ctor: '::',
+										_0: _ohanhi$elm_native_ui$NativeUi_Style$justifyContent('space-between'),
+										_1: {ctor: '[]'}
+									}
+								}
+							}),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: A2(_ohanhi$elm_native_ui$Main$button, _ohanhi$elm_native_ui$Main$ChangeUp, 'Up'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_ohanhi$elm_native_ui$NativeUi_Elements$view,
+						{
+							ctor: '::',
+							_0: _ohanhi$elm_native_ui$NativeUi$style(
+								{
+									ctor: '::',
+									_0: _ohanhi$elm_native_ui$NativeUi_Style$width(200),
+									_1: {
+										ctor: '::',
+										_0: _ohanhi$elm_native_ui$NativeUi_Style$flexDirection('row'),
+										_1: {
+											ctor: '::',
+											_0: _ohanhi$elm_native_ui$NativeUi_Style$justifyContent('space-between'),
+											_1: {ctor: '[]'}
+										}
+									}
+								}),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: A2(_ohanhi$elm_native_ui$Main$button, _ohanhi$elm_native_ui$Main$ChangeLeft, 'Left'),
+							_1: {
+								ctor: '::',
+								_0: A2(_ohanhi$elm_native_ui$Main$button, _ohanhi$elm_native_ui$Main$ChangeDown, 'Down'),
+								_1: {
+									ctor: '::',
+									_0: A2(_ohanhi$elm_native_ui$Main$button, _ohanhi$elm_native_ui$Main$ChangeRight, 'Right'),
+									_1: {ctor: '[]'}
+								}
+							}
+						}),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
+var _ohanhi$elm_native_ui$Main$view = function (model) {
+	return _ohanhi$elm_native_ui$Main$createGameField(model);
+};
+var _ohanhi$elm_native_ui$Main$NoOp = {ctor: 'NoOp'};
+var _ohanhi$elm_native_ui$Main$Tick = function (a) {
+	return {ctor: 'Tick', _0: a};
+};
+var _ohanhi$elm_native_ui$Main$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$batch(
+		{
+			ctor: '::',
+			_0: A2(_elm_lang$core$Time$every, _elm_lang$core$Time$second, _ohanhi$elm_native_ui$Main$Tick),
+			_1: {ctor: '[]'}
+		});
+};
+var _ohanhi$elm_native_ui$Main$NewFruit = function (a) {
+	return {ctor: 'NewFruit', _0: a};
+};
+var _ohanhi$elm_native_ui$Main$Right = {ctor: 'Right'};
+var _ohanhi$elm_native_ui$Main$Left = {ctor: 'Left'};
+var _ohanhi$elm_native_ui$Main$initialGame = {
+	field: _ohanhi$elm_native_ui$Main$createList(_ohanhi$elm_native_ui$Main$initField),
+	apple: {ctor: '_Tuple2', _0: 0, _1: 0},
+	snake: {
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 1, _1: 1},
+		_1: {ctor: '[]'}
+	},
+	dir: _ohanhi$elm_native_ui$Main$Left
+};
+var _ohanhi$elm_native_ui$Main$createModel = function () {
+	var model = _ohanhi$elm_native_ui$Main$initialGame;
+	return {
+		ctor: '_Tuple2',
+		_0: model,
+		_1: A2(_elm_lang$core$Random$generate, _ohanhi$elm_native_ui$Main$NewFruit, _ohanhi$elm_native_ui$Main$randPos)
+	};
+}();
+var _ohanhi$elm_native_ui$Main$Down = {ctor: 'Down'};
+var _ohanhi$elm_native_ui$Main$Up = {ctor: 'Up'};
+var _ohanhi$elm_native_ui$Main$update = F2(
+	function (msg, model) {
+		var _p16 = msg;
+		switch (_p16.ctor) {
+			case 'NewFruit':
+				var _p17 = _p16._0;
+				return A2(_ohanhi$elm_native_ui$Main$appleOnSnake, _p17, model.snake) ? {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: A2(_elm_lang$core$Random$generate, _ohanhi$elm_native_ui$Main$NewFruit, _ohanhi$elm_native_ui$Main$randPos)
+				} : {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{apple: _p17}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'Tick':
+				if (_ohanhi$elm_native_ui$Main$collideWalls(model.snake) || _ohanhi$elm_native_ui$Main$collideSnake(model.snake)) {
+					return _ohanhi$elm_native_ui$Main$createModel;
+				} else {
+					var snake_ = A2(_ohanhi$elm_native_ui$Main$stepSnake, model.snake, model.dir);
+					return A2(_ohanhi$elm_native_ui$Main$eatApple, model.snake, model.apple) ? {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{snake: snake_}),
+						_1: A2(_elm_lang$core$Random$generate, _ohanhi$elm_native_ui$Main$NewFruit, _ohanhi$elm_native_ui$Main$randPos)
+					} : {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								snake: _elm_lang$core$List$reverse(
+									_ohanhi$elm_native_ui$Main$takeTail(snake_))
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
+			case 'NoOp':
+				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+			case 'ChangeUp':
+				return (!_elm_lang$core$Native_Utils.eq(model.dir, _ohanhi$elm_native_ui$Main$Down)) ? {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{dir: _ohanhi$elm_native_ui$Main$Up}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				} : {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+			case 'ChangeDown':
+				return (!_elm_lang$core$Native_Utils.eq(model.dir, _ohanhi$elm_native_ui$Main$Up)) ? {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{dir: _ohanhi$elm_native_ui$Main$Down}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				} : {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+			case 'ChangeLeft':
+				return (!_elm_lang$core$Native_Utils.eq(model.dir, _ohanhi$elm_native_ui$Main$Right)) ? {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{dir: _ohanhi$elm_native_ui$Main$Left}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				} : {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+			default:
+				return (!_elm_lang$core$Native_Utils.eq(model.dir, _ohanhi$elm_native_ui$Main$Left)) ? {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{dir: _ohanhi$elm_native_ui$Main$Right}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				} : {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+		}
+	});
+var _ohanhi$elm_native_ui$Main$main = _ohanhi$elm_native_ui$NativeUi$program(
+	{init: _ohanhi$elm_native_ui$Main$createModel, view: _ohanhi$elm_native_ui$Main$view, update: _ohanhi$elm_native_ui$Main$update, subscriptions: _ohanhi$elm_native_ui$Main$subscriptions})();

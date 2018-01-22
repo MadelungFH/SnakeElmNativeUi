@@ -1,0 +1,25 @@
+var _ohanhi$elm_native_ui$NativeUi$programWithFlags = _ohanhi$elm_native_ui$Native_NativeUi.programWithFlags;
+var _ohanhi$elm_native_ui$NativeUi$program = _ohanhi$elm_native_ui$Native_NativeUi.program;
+var _ohanhi$elm_native_ui$NativeUi$map = _ohanhi$elm_native_ui$Native_NativeUi.map;
+var _ohanhi$elm_native_ui$NativeUi$ref = _ohanhi$elm_native_ui$Native_NativeUi.ref;
+var _ohanhi$elm_native_ui$NativeUi$on = function (eventName) {
+	var realEventName = A2(_elm_lang$core$String$startsWith, 'on', eventName) ? eventName : A2(_elm_lang$core$Basics_ops['++'], 'on', eventName);
+	return _ohanhi$elm_native_ui$Native_NativeUi.on(realEventName);
+};
+var _ohanhi$elm_native_ui$NativeUi$styleSheet = function (_p0) {
+	return _ohanhi$elm_native_ui$Native_NativeUi.style(
+		_ohanhi$elm_native_ui$NativeUi_Style$encodeSheet(_p0));
+};
+var _ohanhi$elm_native_ui$NativeUi$style = function (_p1) {
+	return _ohanhi$elm_native_ui$Native_NativeUi.style(
+		_ohanhi$elm_native_ui$NativeUi_Style$encode(_p1));
+};
+var _ohanhi$elm_native_ui$NativeUi$unsafeRenderDecodedProperty = _ohanhi$elm_native_ui$Native_NativeUi.unsafeRenderDecodedProperty;
+var _ohanhi$elm_native_ui$NativeUi$renderProperty = _ohanhi$elm_native_ui$Native_NativeUi.renderProperty;
+var _ohanhi$elm_native_ui$NativeUi$property = _ohanhi$elm_native_ui$Native_NativeUi.property;
+var _ohanhi$elm_native_ui$NativeUi$string = _ohanhi$elm_native_ui$Native_NativeUi.string;
+var _ohanhi$elm_native_ui$NativeUi$customNode = _ohanhi$elm_native_ui$Native_NativeUi.customNode;
+var _ohanhi$elm_native_ui$NativeUi$node = _ohanhi$elm_native_ui$Native_NativeUi.node;
+var _ohanhi$elm_native_ui$NativeUi$Node = {ctor: 'Node'};
+var _ohanhi$elm_native_ui$NativeUi$Property = {ctor: 'Property'};
+var _ohanhi$elm_native_ui$NativeUi$NativeComponent = {ctor: 'NativeComponent'};
