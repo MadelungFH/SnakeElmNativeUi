@@ -7778,10 +7778,6 @@ var _ohanhi$elm_native_ui$Main$collideSnake = function (snakeList) {
 		}
 	}
 };
-var _ohanhi$elm_native_ui$Main$nextPos = F2(
-	function (pos, maxpos) {
-		return _elm_lang$core$Native_Utils.eq(pos, maxpos) ? 0 : (pos + 1);
-	});
 var _ohanhi$elm_native_ui$Main$colorApple = '#FF0800';
 var _ohanhi$elm_native_ui$Main$colorSnake = '#59982F';
 var _ohanhi$elm_native_ui$Main$colorField = '#DAC27C';
@@ -7795,9 +7791,6 @@ var _ohanhi$elm_native_ui$Main$initField = {
 	_1: {ctor: '[]'}
 };
 var _ohanhi$elm_native_ui$Main$rows = 15;
-var _ohanhi$elm_native_ui$Main$right = function (y) {
-	return A2(_ohanhi$elm_native_ui$Main$nextPos, y, _ohanhi$elm_native_ui$Main$rows);
-};
 var _ohanhi$elm_native_ui$Main$columns = 30;
 var _ohanhi$elm_native_ui$Main$createList = function (list) {
 	createList:
@@ -7835,9 +7828,6 @@ var _ohanhi$elm_native_ui$Main$createList = function (list) {
 			}
 		}
 	}
-};
-var _ohanhi$elm_native_ui$Main$up = function (x) {
-	return A2(_ohanhi$elm_native_ui$Main$nextPos, x, _ohanhi$elm_native_ui$Main$columns);
 };
 var _ohanhi$elm_native_ui$Main$randPos = A2(
 	_elm_lang$core$Random$pair,
@@ -7998,7 +7988,7 @@ var _ohanhi$elm_native_ui$Main$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$batch(
 		{
 			ctor: '::',
-			_0: A2(_elm_lang$core$Time$every, _elm_lang$core$Time$second, _ohanhi$elm_native_ui$Main$Tick),
+			_0: A2(_elm_lang$core$Time$every, 500 * _elm_lang$core$Time$millisecond, _ohanhi$elm_native_ui$Main$Tick),
 			_1: {ctor: '[]'}
 		});
 };
