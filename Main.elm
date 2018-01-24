@@ -114,24 +114,6 @@ createList list =
 -- Funktionen
 
 
-nextPos : Int -> Int -> Int
-nextPos pos maxpos =
-    if pos == maxpos then
-        0
-    else
-        pos + 1
-
-
-up : Int -> Int
-up x =
-    nextPos x columns
-
-
-right : Int -> Int
-right y =
-    nextPos y rows
-
-
 randPos : Random.Generator Pos
 randPos =
     Random.pair (Random.int 1 rows) (Random.int 1 columns)
@@ -405,7 +387,7 @@ update msg model =
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
-        [ Time.every Time.second Tick
+        [ Time.every (500 * Time.millisecond) Tick
         ]
 
 
